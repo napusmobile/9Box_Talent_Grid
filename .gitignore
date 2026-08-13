@@ -1,0 +1,4 @@
+node_modules/
+docs/*-full.png
+.DS_Store
+*.log
