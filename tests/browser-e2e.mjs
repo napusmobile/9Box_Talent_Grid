@@ -8,6 +8,7 @@ const root=process.cwd(), port=4189, base=`http://127.0.0.1:${port}`;
 const server=spawn('python3',['-m','http.server',String(port),'--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});
 const wait=async()=>{for(let i=0;i<40;i++){try{if((await fetch(base)).ok)return;}catch{}await new Promise(r=>setTimeout(r,150));}throw new Error('server not ready');};
 const fillPerson=async(page,{code,name,position='QA',department='Technology',performance='H',potential='H'})=>{
+ if(!await page.locator('input[name="EmpCode"]').isVisible()) await page.locator('#openManual').click();
  await page.locator('input[name="EmpCode"]').fill(code); await page.locator('input[name="Name"]').fill(name);
  await page.locator('input[name="Position"]').fill(position); await page.locator('input[name="Department"]').fill(department);
  await page.locator('select[name="Performance"]').selectOption(performance); await page.locator('select[name="Potential"]').selectOption(potential);
